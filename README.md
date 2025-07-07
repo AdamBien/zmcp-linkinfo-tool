@@ -1,6 +1,18 @@
 # zmcp-linkinfo-tool
 
-MCP tool for analyzing web links. Fetches HTTP status, title, and meta description from URLs.
+[zMCP](https://github.com/adamBien/zmcp) tool for analyzing web links. Fetches HTTP status, title, and meta description from URLs.
+
+## Installation
+
+Build with [zb.sh](https://github.com/adamBien/zb):
+
+```bash
+./zb.sh
+```
+
+This creates `zbo/app.jar` ready for use with zMCP.
+
+Add the JAR to zMCP's classpath to make the LinkInfoTool available.
 
 ## Features
 
