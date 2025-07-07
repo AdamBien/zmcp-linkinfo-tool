@@ -1,15 +1,13 @@
 package airhacks.zmcpli.boundary;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
-
-import airhacks.zmcpli.boundary.LinkInfoTool;
-
-import static org.assertj.core.api.Assertions.*;
 
 class LinkInfoToolTest {
 
     @Test
-    void testNullInput() {
+    void nullInputReturnsError() {
         var tool = new LinkInfoTool();
         var result = tool.apply(null);
         
@@ -18,7 +16,7 @@ class LinkInfoToolTest {
     }
 
     @Test
-    void testEmptyInput() {
+    void emptyInputReturnsError() {
         var tool = new LinkInfoTool();
         var result = tool.apply("");
         
@@ -27,7 +25,7 @@ class LinkInfoToolTest {
     }
 
     @Test
-    void testBlankInput() {
+    void blankInputReturnsError() {
         var tool = new LinkInfoTool();
         var result = tool.apply("   ");
         
@@ -36,7 +34,7 @@ class LinkInfoToolTest {
     }
 
     @Test
-    void testInvalidUrl() {
+    void invalidUrlReturnsError() {
         var tool = new LinkInfoTool();
         var result = tool.apply("not-a-valid-url");
         
@@ -45,7 +43,7 @@ class LinkInfoToolTest {
     }
 
     @Test
-    void testToolSpec() {
+    void toolSpecContainsRequiredFields() {
         assertThat(LinkInfoTool.TOOL_SPEC)
                 .containsEntry("name", "LinkInfoTool")
                 .containsEntry("description", "Fetches information about a URL including title, description, and status")
