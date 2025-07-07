@@ -4,6 +4,8 @@
 
 ## Installation
 
+### Build with zb.sh
+
 Build with [zb.sh](https://github.com/adamBien/zb):
 
 ```bash
@@ -11,6 +13,14 @@ Build with [zb.sh](https://github.com/adamBien/zb):
 ```
 
 This creates `zbo/app.jar` ready for use with zMCP.
+
+### Build with Maven
+
+```bash
+mvn clean package
+```
+
+This creates `target/zmcp-tool.jar` with all dependencies included.
 
 Add the JAR to zMCP's classpath to make the LinkInfoTool available.
 
