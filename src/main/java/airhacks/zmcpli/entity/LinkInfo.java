@@ -7,6 +7,14 @@ public record LinkInfo(
         String title,
         String description) {
 
+    public static LinkInfo withMetadata(String requestedUrl, String finalUrl, int statusCode, String title, String description) {
+        return new LinkInfo(requestedUrl, finalUrl, statusCode, title, description);
+    }
+
+    public static LinkInfo withoutMetadata(String requestedUrl, String finalUrl, int statusCode) {
+        return new LinkInfo(requestedUrl, finalUrl, statusCode, null, null);
+    }
+
     @Override
     public String toString() {
         var sb = new StringBuilder();

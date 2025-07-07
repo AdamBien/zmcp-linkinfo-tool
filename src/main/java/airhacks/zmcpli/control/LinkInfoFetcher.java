@@ -40,9 +40,9 @@ public interface LinkInfoFetcher {
                 var body = response.body();
                 var title = extractTitle(body);
                 var description = extractDescription(body);
-                return new LinkInfo(urlString, finalUrl, statusCode, title, description);
+                return LinkInfo.withMetadata(urlString, finalUrl, statusCode, title, description);
             } else {
-                return new LinkInfo(urlString, finalUrl, statusCode, null, null);
+                return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode);
             }
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Failed to fetch URL: " + urlString, e);
