@@ -52,4 +52,33 @@ class LinkInfoToolIT {
         assertThat(result).containsEntry("error", "true");
         assertThat(result.get("content")).contains("Failed to fetch link info");
     }
+
+    @Test
+    void githubReturnsValidLinkInfo() {
+        var tool = new LinkInfoTool();
+        var result = tool.apply("https://github.com");
+        
+        assertThat(result).containsEntry("error", "false");
+        
+        var content = result.get("content");
+        assertThat(content)
+                .contains("Link Information:")
+                .contains("Requested URL: https://github.com")
+                .contains("Status Code: 200")
+                .contains("Title:");
+    }
+
+    @Test
+    void wikipediaExtractsTitle() {
+        var tool = new LinkInfoTool();
+        var result = tool.apply("https://en.wikipedia.org/wiki/Java_(programming_language)");
+        
+        assertThat(result).containsEntry("error", "false");
+        
+        var content = result.get("content");
+        assertThat(content)
+                .contains("Title:")
+                .containsIgnoringCase("java")
+                .contains("Status Code: 200");
+    }
 }
