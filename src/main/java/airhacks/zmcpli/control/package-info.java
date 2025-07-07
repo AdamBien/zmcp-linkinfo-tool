@@ -1,8 +1,8 @@
 /**
- * Procedural business logic and algorithmic implementations.
+ * Web content fetching and HTML parsing algorithms.
  * 
- * <p>Responsible for orchestrating operations, implementing algorithms,
- * and executing core business functionality independent of external
- * interfaces and data representations.</p>
+ * <p>Responsible for executing HTTP requests, handling redirects,
+ * and extracting structured metadata from HTML content using
+ * pattern matching for titles and meta descriptions.</p>
  */
 package airhacks.zmcpli.control;

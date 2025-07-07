@@ -1,8 +1,8 @@
 /**
- * Domain objects and data structures.
+ * Web link metadata and tool response representations.
  * 
- * <p>Responsible for representing business domain concepts through
- * immutable data carriers without behavior, ensuring clean separation
- * between data and logic.</p>
+ * <p>Responsible for representing link analysis results including
+ * URL information, HTTP status codes, extracted titles and descriptions,
+ * and standardized tool response formats for MCP communication.</p>
  */
 package airhacks.zmcpli.entity;

@@ -1,9 +1,9 @@
 /**
- * Tool interfaces and protocol adapters for external communication.
+ * MCP tool implementations for web link analysis.
  * 
- * <p>Responsible for exposing business functionality through standardized
- * protocols and handling all external interface concerns including
- * request validation, response formatting, and protocol compliance.</p>
+ * <p>Responsible for exposing link analysis capabilities to AI models
+ * through the Model Context Protocol, converting URL strings into
+ * structured metadata including titles, descriptions, and HTTP status.</p>
  * 
  * @see <a href="https://modelcontextprotocol.io/specification/2025-03-26/server/tools">MCP Tools Specification</a>
  */
