@@ -20,6 +20,32 @@ public interface LinkInfoFetcher {
             Pattern.CASE_INSENSITIVE);
 
     static LinkInfo fetch(String urlString) {
+        var normalizedUrl = normalizeUrl(urlString);
+        
+        try {
+            return attemptFetch(normalizedUrl);
+        } catch (RuntimeException e) {
+            if (hasNoScheme(urlString) && normalizedUrl.startsWith("https://")) {
+                Log.info("HTTPS failed, trying HTTP for: %s".formatted(urlString));
+                var httpUrl = "http://" + urlString;
+                return attemptFetch(httpUrl);
+            }
+            throw e;
+        }
+    }
+    
+    static String normalizeUrl(String urlString) {
+        if (hasNoScheme(urlString)) {
+            return "https://" + urlString;
+        }
+        return urlString;
+    }
+    
+    static boolean hasNoScheme(String url) {
+        return !url.contains("://");
+    }
+    
+    static LinkInfo attemptFetch(String urlString) {
         try {
             var httpClient = HttpClient.newBuilder()
                     .connectTimeout(Duration.ofSeconds(10))
