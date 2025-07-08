@@ -16,11 +16,11 @@ public interface ToolSpec {
                                 {
                                     "type": "object",
                                     "properties": {
-                                        "input": {
+                                        "%1$s": {
                                             "type": "string"
                                         }
                                     },
-                                    "required": ["%s"]
+                                    "required": ["%1$s"]
                                 }
                         """.formatted(parameterName));
     }
