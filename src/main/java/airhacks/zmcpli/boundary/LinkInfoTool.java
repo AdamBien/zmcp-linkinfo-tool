@@ -9,6 +9,7 @@ import airhacks.zmcpli.entity.ToolResponse;
 
 public class LinkInfoTool implements Function<String, Map<String, String>> {
 
+    public static final Object VERSION = "LinkInfoTool v2025.07.08.01";
     static Map<String, String> TOOL_SPEC = ToolSpec.singleRequiredParameter("LinkInfoTool", 
             "Fetches information about a URL including title, description, and status");
 
