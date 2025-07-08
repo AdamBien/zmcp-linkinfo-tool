@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.regex.Pattern;
 
 import airhacks.zmcpli.entity.LinkInfo;
@@ -33,18 +34,18 @@ public interface LinkInfoFetcher {
                     .build();
 
             Log.info("HTTP request initiated - Target: " + uri.getHost() + uri.getPath());
-            var startTime = System.currentTimeMillis();
+            var startTime = Instant.now();
             
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             var statusCode = response.statusCode();
             var finalUrl = response.uri().toString();
-            var responseTime = System.currentTimeMillis() - startTime;
+            var responseTime = Duration.between(startTime, Instant.now());
             
             if (!urlString.equals(finalUrl)) {
                 Log.info("URL redirect detected - From: " + urlString + " To: " + finalUrl);
             }
             
-            Log.info("HTTP response received - Status: " + statusCode + ", Time: " + responseTime + "ms");
+            Log.info("HTTP response received - Status: " + statusCode + ", Time: " + responseTime.toMillis() + "ms");
             
             if (statusCode >= 200 && statusCode < 300) {
                 var body = response.body();
