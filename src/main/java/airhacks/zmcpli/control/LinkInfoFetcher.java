@@ -33,7 +33,7 @@ public interface LinkInfoFetcher {
                     .GET()
                     .build();
 
-            Log.info("HTTP request initiated - Target: " + uri.getHost() + uri.getPath());
+            Log.info("HTTP request initiated - Target: %s%s".formatted(uri.getHost(), uri.getPath()));
             var startTime = Instant.now();
             
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -42,10 +42,10 @@ public interface LinkInfoFetcher {
             var responseTime = Duration.between(startTime, Instant.now());
             
             if (!urlString.equals(finalUrl)) {
-                Log.info("URL redirect detected - From: " + urlString + " To: " + finalUrl);
+                Log.info("URL redirect detected - From: %s To: %s".formatted(urlString, finalUrl));
             }
             
-            Log.info("HTTP response received - Status: " + statusCode + ", Time: " + responseTime.toMillis() + "ms");
+            Log.info("HTTP response received - Status: %d, Time: %dms".formatted(statusCode, responseTime.toMillis()));
             
             if (statusCode >= 200 && statusCode < 300) {
                 var body = response.body();
@@ -53,18 +53,17 @@ public interface LinkInfoFetcher {
                 var description = extractDescription(body);
                 
                 if (title != null || description != null) {
-                    Log.info("Metadata extracted - Title found: " + (title != null) + 
-                            ", Description found: " + (description != null));
+                    Log.info("Metadata extracted - Title found: %s, Description found: %s".formatted(title != null, description != null));
                 }
                 
                 return LinkInfo.withMetadata(urlString, finalUrl, statusCode, title, description, responseTime);
             } else {
-                Log.error("Non-success HTTP status " + statusCode + " - Skipping metadata extraction");
+                Log.error("Non-success HTTP status %d - Skipping metadata extraction".formatted(statusCode));
                 return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode, responseTime);
             }
         } catch (IOException | InterruptedException e) {
-            Log.error("HTTP request failed for URL: " + urlString, e);
-            throw new RuntimeException("Failed to fetch URL: " + urlString, e);
+            Log.error("HTTP request failed for URL: %s".formatted(urlString), e);
+            throw new RuntimeException("Failed to fetch URL: %s".formatted(urlString), e);
         }
     }
 

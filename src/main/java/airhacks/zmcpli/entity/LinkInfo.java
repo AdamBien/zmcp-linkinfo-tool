@@ -20,20 +20,26 @@ public record LinkInfo(
 
     @Override
     public String toString() {
-        var sb = new StringBuilder();
-        sb.append("Link Information:\n");
-        sb.append("Requested URL: ").append(requestedUrl).append("\n");
-        if (!requestedUrl.equals(finalUrl)) {
-            sb.append("Final URL: ").append(finalUrl).append("\n");
-        }
-        sb.append("Status Code: ").append(statusCode).append("\n");
-        sb.append("Response Time: ").append(responseTime.toMillis()).append("ms\n");
-        if (title != null) {
-            sb.append("Title: ").append(title).append("\n");
-        }
-        if (description != null) {
-            sb.append("Description: ").append(description).append("\n");
-        }
-        return sb.toString();
+        var finalUrlSection = !requestedUrl.equals(finalUrl) ? 
+            "Final URL: %s\n".formatted(finalUrl) : "";
+        
+        var titleSection = title != null ? 
+            "Title: %s\n".formatted(title) : "";
+            
+        var descriptionSection = description != null ? 
+            "Description: %s\n".formatted(description) : "";
+        
+        return """
+                Link Information:
+                Requested URL: %s
+                %sStatus Code: %d
+                Response Time: %dms
+                %s%s""".formatted(
+                    requestedUrl, 
+                    finalUrlSection, 
+                    statusCode, 
+                    responseTime.toMillis(),
+                    titleSection,
+                    descriptionSection);
     }
 }

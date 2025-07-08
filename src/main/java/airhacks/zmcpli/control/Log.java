@@ -17,26 +17,26 @@ public interface Log {
     }
     
     static void info(String message){
-        append("⚙️ " + message);
+        append("⚙️ %s".formatted(message));
     }
     
     static void error(String message){
-        append("❌ " + message);
+        append("❌ %s".formatted(message));
     }
     
     static void error(String message, Throwable throwable){
-        append("❌ " + message);
+        append("❌ %s".formatted(message));
         if (throwable != null) {
-            append("   Exception: " + throwable.getClass().getName() + " - " + throwable.getMessage());
+            append("   Exception: %s - %s".formatted(throwable.getClass().getName(), throwable.getMessage()));
             if (throwable.getCause() != null) {
-                append("   Root cause: " + throwable.getCause().getClass().getName() + " - " + throwable.getCause().getMessage());
+                append("   Root cause: %s - %s".formatted(throwable.getCause().getClass().getName(), throwable.getCause().getMessage()));
             }
         }
     }
 
     private static void append(String message){
         try {
-            Files.writeString(LOG_FILE, message + "\n", StandardOpenOption.APPEND);
+            Files.writeString(LOG_FILE, "%s\n".formatted(message), StandardOpenOption.APPEND);
         } catch (IOException e) {
         }
     }
