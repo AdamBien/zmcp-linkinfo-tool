@@ -29,7 +29,7 @@ public class LinkInfoTool implements Function<String, Map<String, String>> {
             
             return ToolResponse.success(linkInfo.toString()).toMap();
         } catch (RuntimeException e) {
-            Log.error("LinkInfo request failed - URL: " + url + ", Cause: " + e.getClass().getSimpleName());
+            Log.error("LinkInfo request failed - URL: " + url, e);
             return ToolResponse.error("Failed to fetch link info: " + e.getMessage()).toMap();
         }
     }

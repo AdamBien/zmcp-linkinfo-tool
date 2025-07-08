@@ -63,8 +63,7 @@ public interface LinkInfoFetcher {
                 return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode);
             }
         } catch (IOException | InterruptedException e) {
-            Log.error("HTTP request failed - Exception: " + e.getClass().getSimpleName() + 
-                    ", Root cause: " + (e.getCause() != null ? e.getCause().getClass().getSimpleName() : "none"));
+            Log.error("HTTP request failed for URL: " + urlString, e);
             throw new RuntimeException("Failed to fetch URL: " + urlString, e);
         }
     }
