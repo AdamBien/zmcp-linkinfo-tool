@@ -1,18 +1,21 @@
 package airhacks.zmcpli.entity;
 
+import java.time.Duration;
+
 public record LinkInfo(
         String requestedUrl,
         String finalUrl,
         int statusCode,
         String title,
-        String description) {
+        String description,
+        Duration responseTime) {
 
-    public static LinkInfo withMetadata(String requestedUrl, String finalUrl, int statusCode, String title, String description) {
-        return new LinkInfo(requestedUrl, finalUrl, statusCode, title, description);
+    public static LinkInfo withMetadata(String requestedUrl, String finalUrl, int statusCode, String title, String description, Duration responseTime) {
+        return new LinkInfo(requestedUrl, finalUrl, statusCode, title, description, responseTime);
     }
 
-    public static LinkInfo withoutMetadata(String requestedUrl, String finalUrl, int statusCode) {
-        return new LinkInfo(requestedUrl, finalUrl, statusCode, null, null);
+    public static LinkInfo withoutMetadata(String requestedUrl, String finalUrl, int statusCode, Duration responseTime) {
+        return new LinkInfo(requestedUrl, finalUrl, statusCode, null, null, responseTime);
     }
 
     @Override
@@ -24,6 +27,7 @@ public record LinkInfo(
             sb.append("Final URL: ").append(finalUrl).append("\n");
         }
         sb.append("Status Code: ").append(statusCode).append("\n");
+        sb.append("Response Time: ").append(responseTime.toMillis()).append("ms\n");
         if (title != null) {
             sb.append("Title: ").append(title).append("\n");
         }

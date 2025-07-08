@@ -57,10 +57,10 @@ public interface LinkInfoFetcher {
                             ", Description found: " + (description != null));
                 }
                 
-                return LinkInfo.withMetadata(urlString, finalUrl, statusCode, title, description);
+                return LinkInfo.withMetadata(urlString, finalUrl, statusCode, title, description, responseTime);
             } else {
                 Log.error("Non-success HTTP status " + statusCode + " - Skipping metadata extraction");
-                return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode);
+                return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode, responseTime);
             }
         } catch (IOException | InterruptedException e) {
             Log.error("HTTP request failed for URL: " + urlString, e);
