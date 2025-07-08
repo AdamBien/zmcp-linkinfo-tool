@@ -1,5 +1,7 @@
 package airhacks.zmcpli.boundary;
 
+import static java.lang.System.in;
+
 import java.util.Map;
 import java.util.function.Function;
 
@@ -7,14 +9,17 @@ import airhacks.zmcpli.control.LinkInfoFetcher;
 import airhacks.zmcpli.control.Log;
 import airhacks.zmcpli.entity.ToolResponse;
 
-public class LinkInfoTool implements Function<String, Map<String, String>> {
+public class LinkInfoTool implements Function<Map<String,Object>, Map<String, String>> {
 
-    public static final Object VERSION = "LinkInfoTool v2025.07.08.01";
-    static Map<String, String> TOOL_SPEC = ToolSpec.singleRequiredParameter("LinkInfoTool", 
+    public static final Object VERSION = "LinkInfoTool v2025.07.08.02";
+    static String URL_PARAMETER = "url";
+    static Map<String, String> TOOL_SPEC = ToolSpec.singleRequiredParameter("LinkInfoTool", URL_PARAMETER,
             "Fetches information about a URL including title, description, and status");
 
     @Override
-    public Map<String, String> apply(String url) {
+    public Map<String, String> apply(Map<String,Object> input) {
+        Log.info("input " + input);
+        var url = (String) input.get("url");
         try {
             if (url == null || url.isBlank()) {
                 Log.error("LinkInfo request rejected - empty URL parameter");

@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface ToolSpec {
 
-    static Map<String, String> singleRequiredParameter(String name, String description) {
+    static Map<String, String> singleRequiredParameter(String name,String parameterName, String description) {
         return Map.of(
                 "name", name,
                 "description", description,
@@ -20,9 +20,9 @@ public interface ToolSpec {
                                             "type": "string"
                                         }
                                     },
-                                    "required": ["input"]
+                                    "required": ["%s"]
                                 }
-                        """);
+                        """.formatted(parameterName));
     }
 
     static Map<String, String> noParameters(String name, String description) {

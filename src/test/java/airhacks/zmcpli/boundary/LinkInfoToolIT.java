@@ -2,6 +2,8 @@ package airhacks.zmcpli.boundary;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 class LinkInfoToolIT {
@@ -9,7 +11,7 @@ class LinkInfoToolIT {
     @Test
     void airhacksLiveReturnsValidLinkInfo() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://airhacks.live");
+        var result = tool.apply(Map.of("url", "https://airhacks.live"));
         
         assertThat(result).containsEntry("error", "false");
         
@@ -23,7 +25,7 @@ class LinkInfoToolIT {
     @Test
     void airhacksLiveExtractsTitle() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://airhacks.live");
+        var result = tool.apply(Map.of("url", "https://airhacks.live"));
         
         assertThat(result).containsEntry("error", "false");
         
@@ -36,7 +38,7 @@ class LinkInfoToolIT {
     @Test
     void airhacksLiveHandlesRedirects() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://airhacks.live");
+        var result = tool.apply(Map.of("url", "https://airhacks.live"));
         
         assertThat(result).containsEntry("error", "false");
         
@@ -47,7 +49,7 @@ class LinkInfoToolIT {
     @Test
     void nonExistentDomainReturnsError() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://this-domain-does-not-exist-12345.com");
+        var result = tool.apply(Map.of("url", "https://this-domain-does-not-exist-12345.com"));
         
         assertThat(result).containsEntry("error", "true");
         assertThat(result.get("content")).contains("Failed to fetch link info");
@@ -56,7 +58,7 @@ class LinkInfoToolIT {
     @Test
     void githubReturnsValidLinkInfo() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://github.com");
+        var result = tool.apply(Map.of("url", "https://github.com"));
         
         assertThat(result).containsEntry("error", "false");
         
@@ -71,7 +73,7 @@ class LinkInfoToolIT {
     @Test
     void wikipediaExtractsTitle() {
         var tool = new LinkInfoTool();
-        var result = tool.apply("https://en.wikipedia.org/wiki/Java_(programming_language)");
+        var result = tool.apply(Map.of("url", "https://en.wikipedia.org/wiki/Java_(programming_language)"));
         
         assertThat(result).containsEntry("error", "false");
         
