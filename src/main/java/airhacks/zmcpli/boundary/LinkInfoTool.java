@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import airhacks.zmcpli.control.LinkInfoFetcher;
+import airhacks.zmcpli.control.Log;
 import airhacks.zmcpli.entity.ToolResponse;
 
 public class LinkInfoTool implements Function<String, Map<String, String>> {
@@ -15,12 +16,20 @@ public class LinkInfoTool implements Function<String, Map<String, String>> {
     public Map<String, String> apply(String url) {
         try {
             if (url == null || url.isBlank()) {
+                Log.info("LinkInfo request rejected - empty URL parameter");
                 return ToolResponse.error("URL parameter is required").toMap();
             }
 
-            var linkInfo = LinkInfoFetcher.fetch(url.trim());
+            var trimmedUrl = url.trim();
+            Log.info("Processing LinkInfo request for: " + trimmedUrl);
+            
+            var linkInfo = LinkInfoFetcher.fetch(trimmedUrl);
+            Log.info("LinkInfo retrieved successfully - Status: " + linkInfo.statusCode() + 
+                    ", Title length: " + (linkInfo.title() != null ? linkInfo.title().length() : 0) + " chars");
+            
             return ToolResponse.success(linkInfo.toString()).toMap();
         } catch (RuntimeException e) {
+            Log.info("LinkInfo request failed - URL: " + url + ", Cause: " + e.getClass().getSimpleName());
             return ToolResponse.error("Failed to fetch link info: " + e.getMessage()).toMap();
         }
     }
