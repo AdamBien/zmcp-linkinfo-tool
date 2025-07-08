@@ -16,7 +16,7 @@ public class LinkInfoTool implements Function<String, Map<String, String>> {
     public Map<String, String> apply(String url) {
         try {
             if (url == null || url.isBlank()) {
-                Log.info("LinkInfo request rejected - empty URL parameter");
+                Log.error("LinkInfo request rejected - empty URL parameter");
                 return ToolResponse.error("URL parameter is required").toMap();
             }
 
@@ -29,7 +29,7 @@ public class LinkInfoTool implements Function<String, Map<String, String>> {
             
             return ToolResponse.success(linkInfo.toString()).toMap();
         } catch (RuntimeException e) {
-            Log.info("LinkInfo request failed - URL: " + url + ", Cause: " + e.getClass().getSimpleName());
+            Log.error("LinkInfo request failed - URL: " + url + ", Cause: " + e.getClass().getSimpleName());
             return ToolResponse.error("Failed to fetch link info: " + e.getMessage()).toMap();
         }
     }

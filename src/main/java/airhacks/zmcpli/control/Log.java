@@ -4,4 +4,8 @@ public interface Log {
     static void info(String message){
         out.println("⚙️ " + message);
     }
+    
+    static void error(String message){
+        out.println("❌ " + message);
+    }
 }

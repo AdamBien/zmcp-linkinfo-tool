@@ -58,11 +58,11 @@ public interface LinkInfoFetcher {
                 
                 return LinkInfo.withMetadata(urlString, finalUrl, statusCode, title, description);
             } else {
-                Log.info("Non-success status code - Skipping metadata extraction");
+                Log.error("Non-success HTTP status " + statusCode + " - Skipping metadata extraction");
                 return LinkInfo.withoutMetadata(urlString, finalUrl, statusCode);
             }
         } catch (IOException | InterruptedException e) {
-            Log.info("HTTP request failed - Exception: " + e.getClass().getSimpleName() + 
+            Log.error("HTTP request failed - Exception: " + e.getClass().getSimpleName() + 
                     ", Root cause: " + (e.getCause() != null ? e.getCause().getClass().getSimpleName() : "none"));
             throw new RuntimeException("Failed to fetch URL: " + urlString, e);
         }
